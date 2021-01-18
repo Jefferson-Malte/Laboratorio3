@@ -1,0 +1,31 @@
+/*
+ * Nombre: Jefferson Malte
+ * Laboratorio Nro. 3
+ * Codigo Ping-Pong
+ */
+
+// pines de los  potenciómetros
+const int potPin1=A2;
+const int potPin2=A0;
+int led=3;
+  
+void setup(){
+  Serial.begin(9600); //   puerto serie
+   pinMode(4,INPUT);
+   pinMode(led,OUTPUT);
+}
+
+void loop(){
+if(digitalRead(4)==LOW){//boton de activacion para mandar los datos 
+  String movimientos = ""; // variable movimientos para almacenar la lectura de potenciómetros
+  movimientos += analogRead(potPin1); // Leer el valor del pin de la entrada analógica 1 y  agregar a la variable movimientos
+  movimientos += '-'; // Agregar un guión a la variable movimientos para separar los valores de los dos pines
+  movimientos += analogRead(potPin2); // Leer el valor del pin de la entrada analógica 2 y lo agregar a la variable movimientos
+  Serial.println(movimientos); // Enviar el valor de la variable movimientos a Processing a través del puerto serial
+  delay(100);
+  digitalWrite(led,HIGH); //encender led
+}
+if(digitalRead(4)==HIGH){
+   digitalWrite(led,LOW);
+}
+}
